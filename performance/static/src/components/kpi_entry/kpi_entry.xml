@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="hr.kpiEntry" owl="1">
+        <div class="container-xl">
+            <div class="table-responsive">
+                <div class="table-wrapper">
+                    <div class="table-title">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <select class="form-control __appearance_auto" id="empDesig"
+                                                placeholder="Select Designation"
+                                                autocomplete="off" t-on-change="_onChangeDesig">
+                                            <option selected="true"></option>
+                                            <option t-att-value="designation.id" t-foreach="state.desigList"
+                                                    t-as="designation" t-key="designation.id">
+                                                <span t-esc="designation.display_name"/>
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <!--                                <input type="text" class="form-control" placeholder="Zip" aria-label="Zip"/>-->
+                                        <select class="form-control __appearance_auto" placeholder="Select a person..."
+                                                autocomplete="off">
+                                            <option value=""></option>
+                                            <option t-att-value="emp.id" t-foreach="state.empList" t-as="emp"
+                                                    t-key="emp.id">
+                                                <span t-esc="emp.name"/>
+                                                -
+                                                <span t-esc="emp.code"/>
+                                            </option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <!--                        <div class="search-box" style="margin-top: 12px;">-->
+                                <!--                            <i class="fa fa-search" aria-hidden="true"></i>-->
+                                <!--                            <input type="text" class="form-control" placeholder="Search"/>-->
+                                <!--                        </div>-->
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Name
+                                    <i class="fa fa-sort"></i>
+                                </th>
+                                <th>Designation</th>
+                                <th>Department
+                                    <i class="fa fa-sort"></i>
+                                </th>
+                                <th>Grade</th>
+                                <th>Current Performance</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="state.empList" t-as="emp" t-key="emp.id">
+                                <td>
+                                    <span t-esc="emp.code"/>
+                                </td>
+                                <td>
+                                    <span t-esc="emp.name"/>
+                                </td>
+                                <td>
+                                    <span t-esc="emp.designation"/>
+                                </td>
+                                <td>
+                                    <span t-esc="emp.department"/>
+                                </td>
+                                <td>
+                                    <span t-esc="emp.grade"/>
+                                </td>
+                                <td>
+                                    <span t-esc="emp.monthly_performance ?? '-'"/>
+                                </td>
+                                <!--                        <td>Italy</td>-->
+                                <td style="text-align: center;">
+                                    <a t-if="emp.kpi_entered.length == 0 || state.userData.allow_pdke" href="#" class="view"
+                                       title="Add KPI" data-toggle="tooltip" t-on-click="()=>this.empKpiFormView(emp, 'add')">
+                                        <i class="fa fa-plus" aria-hidden="false"></i>
+                                    </a>
+
+                                    <a t-if="emp.kpi_entered.length > 0" href="#" class="edit" title="Edit KPI"
+                                       data-toggle="tooltip" t-on-click="()=>this.empKpiFormView(emp, 'edit')">
+                                        <i class="fa fa-pencil" aria-hidden="false"></i>
+                                    </a>
+                                    <a t-if="emp.kpi_entered.length > 0" href="#" class="view" title="View KPI"
+                                       data-toggle="tooltip" t-on-click="()=>this.viewEmpKpi(emp)">
+                                        <i class="fa fa-eye" aria-hidden="false"></i>
+                                    </a>
+                                    <a t-if="emp.kpi_entered.length > 0" href="#" class="view" title="View Performance"
+                                       data-toggle="tooltip" t-on-click="()=>this.viewEmpPerf(emp)">
+                                        <i class="fa fa-bar-chart" aria-hidden="false"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="container-fluid" t-if="state.empList.length == 0"
+                         style="text-align: center;padding: 10px;">No data found
+                    </div>
+
+                    <!--            <div class="clearfix">-->
+                    <!--                <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>-->
+                    <!--                <ul class="pagination">-->
+                    <!--                    <li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a></li>-->
+                    <!--                    <li class="page-item"><a href="#" class="page-link">1</a></li>-->
+                    <!--                    <li class="page-item"><a href="#" class="page-link">2</a></li>-->
+                    <!--                    <li class="page-item active"><a href="#" class="page-link">3</a></li>-->
+                    <!--                    <li class="page-item"><a href="#" class="page-link">4</a></li>-->
+                    <!--                    <li class="page-item"><a href="#" class="page-link">5</a></li>-->
+                    <!--                    <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>-->
+                    <!--                </ul>-->
+                    <!--            </div>-->
+                </div>
+            </div>
+        </div>
+        <!-- Add & Edit Employee KPI Modal -->
+        <div class="modal fade" id="empKpiModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+             t-ref="emp-kpi-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">KPI Entry -
+                            <span t-esc="state.kpiEntryEmp.name"></span>
+                                <span style="margin-left: 20px">Month of :  <span t-esc="state.month"> </span>
+                            </span>
+                            <span> </span>
+                            <span t-esc="state.year"/>
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
+                    </div>
+                    <form id="addKpiForm">
+                        <div class="modal-body">
+                            <div class="row" t-if="state.empKpiData.length == 0">No KPI Found</div>
+
+                            <div class="mb-3 row" t-if="state.userData.allow_pdke">
+                                <label for="name" class="col-sm-6 col-form-label">
+                                    Entry Month
+                                </label>
+                                <div class="col-sm-6">
+<!--                                    <input class="form-control" type="text" name=""/>-->
+                                    <input class="form-control" type="month" name="kpi_month_year" id="kpi_month_year"/>
+                                </div>
+                            </div>
+                            <div t-if="state.empKpiData.length > 0" class="mb-3 row" t-foreach="state.empKpiData"
+                                 t-as="kpiData" t-key="kpiData_index">
+                                <label for="name" class="col-sm-6 col-form-label">
+                                    <span t-esc="kpiData['kpi_name']"/>
+                                </label>
+                                <input type="hidden" name="kpi_ids[]" t-att-value="kpiData['kpi_id']"/>
+                                <div class="col-sm-6">
+                                    <t t-if="kpiData['input_field_type'] == 2">
+                                        <input t-att-value="kpiData['selected_value'] ?? ''" class="form-control __appearance_auto txt_field" type="text" name="kpi_score[]"/>
+                                    </t>
+                                    <t t-if="kpiData['input_field_type'] == 1">
+                                        <select class="form-control __appearance_auto" name="kpi_score[]">
+                                            <option selected="true"></option>
+                                            <option t-att-value="pt_score['pt_score']"
+                                                    t-foreach="kpiData['kpi_pt_score']"
+                                                    t-as="pt_score" t-key="pt_score_index"
+                                                    t-att-selected="pt_score['pt_score'] == kpiData['selected_value'] ?? false">
+                                                <span t-esc="pt_score['pt_label']"/>
+                                            </option>
+                                        </select>
+                                    </t>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" t-on-click="saveEmpPerf">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- View Employee KPI Modal -->
+        <div class="modal fade" id="viewEmpKpiModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">KPI Entry -
+                            <span t-esc="state.kpiEntryEmp.name"></span>
+                            <span style="margin-left: 20px">Month of :  <span t-esc="state.month"/>&nbsp;<span t-esc="state.year"/></span>
+
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
+                    </div>
+                        <div class="modal-body">
+                            <div class="row" t-if="state.empKpiData.length == 0">No KPI Found</div>
+                            <div t-if="state.empKpiData.length > 0" class="mb-3 row kpi_info_row" t-foreach="state.empKpiData"
+                                 t-as="kpiData" t-key="kpiData_index">
+                                <label for="name" class="col-sm-6 col-form-label">
+                                    <span t-esc="kpiData['kpi_name']"/>
+                                </label>
+                                <div class="col-sm-3">
+                                    <t>
+                                        <input t-att-value="kpiData['selected_value'] ?? ''" class="form-control __appearance_auto txt_field" type="text" readonly="true"/>
+                                    </t>
+                                </div>
+                                <label for="name" class="col-sm-3 col-form-label">
+                                    <span class="badge w-100" t-att-class="kpiData['badge']" t-esc="kpiData['label']"/>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+<!--                            <button type="button" class="btn btn-primary" t-on-click="saveEmpPerf">Save changes</button>-->
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View Employee Performance -->
+        <div class="modal fade" id="viewEmpPerformance" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">KPI Entry -
+                            <span t-esc="state.kpiEntryEmp.name"></span>
+<!--                            <span style="margin-left: 20px">Month of :  <span t-esc="state.month"/>&nbsp;<span t-esc="state.year"/></span>-->
+
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
+                    </div>
+                        <div class="modal-body">
+                            <h1>Employee Performance</h1>
+                            <div class="row" style="position: relative; height:67vh; width:65vw">
+                               <canvas id="perfBarChart" aria-label="chart"></canvas>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+<!--                            <button type="button" class="btn btn-primary" t-on-click="saveEmpPerf">Save changes</button>-->
+                        </div>
+                </div>
+            </div>
+        </div>
+<!--        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>-->
+<!--        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>-->
+<!--        <script type="module" src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/chart.min.js"></script>-->
+<!--        <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.1/helpers.min.js"></script>-->
+<!--        <script type="text/javascript" src="/tek_hr_performance/static/src/js/custom.js"></script>-->
+    </t>
+</templates>

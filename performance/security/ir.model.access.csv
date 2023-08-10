@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+tek_hr_performance.access_hr_kpi_setup,access_hr_kpi_setup,tek_hr_performance.model_hr_kpi_setup,base.group_user,1,1,1,1
+tek_hr_performance.access_hr_kpi_dashboard,access_hr_kpi_dashboard,tek_hr_performance.model_hr_kpi_dashboard,base.group_user,1,1,1,1
+tek_hr_performance.access_hr_kpi_type,access_hr_kpi_type,tek_hr_performance.model_hr_kpi_type,base.group_user,1,1,1,1
+tek_hr_performance.access_hr_kpi_points_tbl,access_hr_kpi_points_tbl,tek_hr_performance.model_hr_kpi_points_tbl,base.group_user,1,1,1,1
+tek_hr_performance.access_hr_kpi_points_label,access_hr_kpi_points_label,tek_hr_performance.model_hr_kpi_points_label,base.group_user,1,1,1,1
+tek_hr_performance.access_hr_kpi_groups,access_hr_kpi_groups,tek_hr_performance.model_hr_kpi_groups,base.group_user,1,1,1,1
+tek_hr_performance.access_hr_kpi_compd_pt,access_hr_kpi_compd_pt,tek_hr_performance.model_hr_kpi_compd_pt,base.group_user,1,1,1,1
+tek_hr_performance.access_hr_kpi_employee,access_hr_kpi_employee,tek_hr_performance.model_hr_kpi_employee,base.group_user,1,1,1,1
+tek_hr_performance.access_hr_kpi_emp_entry,access_hr_kpi_emp_entry,tek_hr_performance.model_hr_kpi_emp_entry,base.group_user,1,1,1,1
+tek_hr_performance.access_hr_desig_points,access_hr_desig_points,tek_hr_performance.model_hr_desig_points,base.group_user,1,1,1,1
+tek_hr_performance.access_hr_emp_kpi_calc,access_hr_emp_kpi_calc,tek_hr_performance.model_hr_emp_kpi_calc,base.group_user,1,1,1,1
+tek_hr_performance.access_hr_kpi_category,access_hr_kpi_category,tek_hr_performance.model_hr_kpi_category,base.group_user,1,1,1,1

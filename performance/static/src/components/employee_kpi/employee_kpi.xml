@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<template>
+    <t t-name="hr.employee_kpi" owl="1">
+        <div class="container py-3 d-flex flex-column">
+            <div class="card shadow rounded-3 my-auto">
+                <div class="card-header p-3 h4">
+                    Employee KPI
+                </div>
+                <div class="card-body p-4">
+                    <form role="form" class="row" id="emp_desig_form">
+                        <div class="form-group col-lg-4">
+<!--                            <label class="form-control-label" for="form-group-input">Employee Designation</label>-->
+                            <select size="0" class="form-control" name="emp_desig" id="job_id">
+                                <option selected="true" disabled="true">Employee KPI Category</option>
+                                <option t-att-value="emp_desig.id"
+                                        t-foreach="state.desigList"
+                                        t-as="emp_desig" t-key="emp_desig_index">
+                                    <span t-esc="emp_desig.display_name"/>
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-lg-12">
+                            <button class="btn btn-primary float-end" type="button" t-on-click="cloneGroup">
+                                <i class="fa fa-plus"></i>
+                                Add New Group
+                            </button>
+                        </div>
+                        <div class="container" id="group_ele">
+                            <div class="col-lg-12 border group_ele_1" style="height:auto;">
+                                <div class="card-header mb-2">
+                                    <div class="row">
+                                        <div class="col-lg-2 p-0" style="padding-left: 5px !important;">
+                                            <button type="button" t-on-click="cloneKpiFac" class="btn btn-primary">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-lg-4 p-0 float-right">
+                                            <input type="text" class="form-control group_hele_1" placeholder="Group Name" />
+                                        </div>
+                                        <div class="col-lg-2 p-0 float-right" style="margin-left: 20px;">
+                                             <select size="0" class="form-control group_output_1" name="grp_output">
+                                                <option value="" selected="true" disabled="true">Group Output</option>
+                                                  <option value="value">Value</option>
+                                                  <option value="percentage">Percentage</option>
+                                             </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div id="kpi_fac_ele_1" class="kpi_fac_ele_1">
+                                    <div class="row">
+                                        <div class="col">
+                                            <select size="0" class="form-control fact_opt_1" name="fact_opt">
+                                                <option value="" selected="true" disabled="true">Factor Operator</option>
+                                                <option value="add">Additions (+)</option>
+                                                <option value="subs">Subtractions (-)</option>
+                                                <option value="multiply">Multiply(*)</option>
+                                                <option value="factor">Based on Factor</option>
+
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <select size="0" class="form-control fact_opt_1" name="kpi_id">
+                                                <option selected="true" disabled="true" value="">Select KPI</option>
+                                                <option t-att-value="kpi.id"
+                                                        t-foreach="state.kpiList"
+                                                        t-as="kpi" t-key="kpi_index">
+                                                    <span t-esc="kpi.kpi_name"/>
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <select size="0" class="form-control fact_opt_1" name="factor">
+                                                <option value="" selected="true" disabled="true">Factor</option>
+                                                <option value="primary">Primary</option>
+                                                <option value="secondary">Secondary</option>
+                                                <option value="tertiary">Tertiary</option>
+                                                <option value="sum">Sum</option>
+                                                <option value="mul">Multiply</option>
+                                                <option value="avg">Average</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-12">
+<!--                            handleEmpKpi-->
+                            <button class="btn btn-primary float-end mt-2" type="button" t-on-click="groupCalculation">Next (Group Calculation)</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card" id="grp_calculation" style="display:none">
+                  <div class="card-body">
+                      <div class="row">
+                          <div class="col-lg-6">
+                            <h4 class="card-title">Group Calculation</h4>
+                          </div>
+                          <div class="col-lg-6" style="text-align: end;">
+                              <button type="button" class="btn btn-primary me-3" t-on-click="addGrpSelection">
+                                  <i class="fa fa-plus"> </i> Add Group List
+                              </button>
+                              <button type="button" class="btn btn-primary" t-on-click="addArithmeticOperation">
+                                  <i class="fa fa-plus"> </i> Add Arithmetic Operation
+                              </button>
+                          </div>
+                      </div>
+                    <div class="row">
+                        <div class="col-md-4 mx-auto" id="grp_selection_ele">
+                            <!--dynamic load element-->
+                        </div>
+                    </div>
+                      <div class="col-md-8" style="text-align: end;">
+                            <button type="button" class="btn btn-primary" t-on-click="handleEmpKpi">Submit</button>
+                      </div>
+                  </div>
+                </div>
+            </div>
+
+        </div>
+    </t>
+</template>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="kpi_employee_form" model="ir.ui.view">
+        <field name="name">kpi.employee.form</field>
+        <field name="model">hr.kpi.employee</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="desig_id" options="{'no_open' : True, 'no_create': True}"/>
+                        <field name="kpi_ids" widget="many2many_tags"/>
+<!--                        <field name="cmpd_kpi_ids" widget="many2many_tags"/>-->
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="kpi_employee_tree" model="ir.ui.view">
+        <field name="name">kpi.employee.tree</field>
+        <field name="model">hr.kpi.employee</field>
+        <field name="arch" type="xml">
+            <tree>
+                <header>
+                    <button name="action_new_button" type="button" string="Action New Button"/>
+                </header>
+                <field name="desig_id"/>
+                <field name="kpi_ids" widget="many2many_tags"/>
+<!--                <field name="cmpd_kpi_ids" widget="many2many_tags"/>-->
+            </tree>
+
+        </field>
+    </record>
+
+
+</odoo>

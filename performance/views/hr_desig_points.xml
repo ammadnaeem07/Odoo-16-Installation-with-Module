@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_desig_points_form" model="ir.ui.view">
+        <field name="name">kpi.desig.points.form</field>
+        <field name="model">hr.desig.points</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="level_id" options="{'no_open' : True, 'no_create': True}"/>
+                        <field name="grade_id" options="{'no_open' : True, 'no_create': True}" />
+                        <field name="job_id" widget="many2many_tags" options="{'no_open' : True, 'no_create': True}"/>
+                        <field name="points" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_desig_points_tree" model="ir.ui.view">
+        <field name="name">kpi.desig.points.tree</field>
+        <field name="model">hr.desig.points</field>
+        <field name="arch" type="xml">
+            <tree>
+                 <field name="level_id" />
+                 <field name="grade_id" />
+                 <field name="job_id"  widget="many2many_tags"/>
+                 <field name="points" />
+            </tree>
+        </field>
+    </record>
+<record id="point_desig_view_search" model="ir.ui.view">
+    <field name="name">Point Desig Group</field>
+    <field name="model">hr.desig.points</field>
+    <field name="arch" type="xml">
+        <search>
+            <field name="job_id"/>
+            <group expand="0" string="Group By...">
+                <filter string="Employee KPI Category" name="job_id" domain="[]" context="{'group_by':'job_id'}"/>
+            </group>
+        </search>
+    </field>
+</record>
+
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="kpi_setup_form" model="ir.ui.view">
+        <field name="name">kpi.setup.form</field>
+        <field name="model">hr.kpi.setup</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="kpi_type_id" options="{'no_open' : True, 'no_create': True}"/>
+                        <field name="kpi_name"/>
+                        <field name="group_ids" widget="many2many_tags"/>
+                        <field name="is_parent_kpi" />
+                        <field name="kpi_parent_id" attrs="{'invisible': [('is_parent_kpi', '=', True)]}" />
+                        <field name="kpi_description"/>
+                        <field name="kpi_measure"/>
+                        <field name="input_field"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="kpi_setup_tree" model="ir.ui.view">
+        <field name="name">kpi.setup.tree</field>
+        <field name="model">hr.kpi.setup</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="kpi_type_id"/>
+                <field name="kpi_name"/>
+                <field name="kpi_parent_id" />
+                <field name="input_field"/>
+            </tree>
+        </field>
+    </record>
+
+
+</odoo>

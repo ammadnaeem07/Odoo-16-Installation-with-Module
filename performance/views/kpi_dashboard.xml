@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+     <record id="kpi_dashboard_view" model="ir.ui.view">
+            <field name="name">hr.kpi.dashboard.graph</field>
+            <field name="model">hr.kpi.dashboard</field>
+<!--            <field name="arch" type="xml">-->
+<!--                <graph string="Activities Analysis" sample="1">-->
+<!--&lt;!&ndash;                    <field name="mail_activity_type_id"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <field name="id" />&ndash;&gt;-->
+<!--                </graph>-->
+<!--            </field>-->
+        </record>
+<!--    <record id="kpi_dashboard_view" model="ir.ui.view">-->
+<!--        <h1>KPI Dashboard</h1>-->
+<!--    </record>-->
+</odoo>

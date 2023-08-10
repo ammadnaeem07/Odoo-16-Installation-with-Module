@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="kpi_groups_form" model="ir.ui.view">
+        <field name="name">kpi.groups.form</field>
+        <field name="model">hr.kpi.groups</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="grp_name"/>
+                        <field name="objective"/>
+                        <field name="strategy"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="kpi_groups_tree" model="ir.ui.view">
+        <field name="name">kpi.groups.tree</field>
+        <field name="model">hr.kpi.groups</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="grp_name"/>
+                <field name="objective"/>
+                <field name="strategy"/>
+            </tree>
+        </field>
+    </record>
+
+
+</odoo>

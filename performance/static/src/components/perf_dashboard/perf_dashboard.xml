@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="perfDashboard">
+    <t t-name="hr.perfDashboard" owl="1">
+        <div t-if="!state.empData.is_admin" class="container">
+            <div class="main">
+                <div class="row">
+                    <div class="col-md-3" style="margin-top:30px">
+<!--                        <div class="form-group">-->
+<!--                            <label>Duration</label>-->
+<!--                          <input type="text" class="form-control" id=""/>-->
+<!--                        </div>-->
+                        <div class="form-group">
+                            <label>Current Grade</label>
+                          <input type="text" class="form-control" readonly="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Target Grade</label>
+                          <input type="text" class="form-control" readonly="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Projected Grade</label>
+                          <input type="text" class="form-control" t-att-value="state.projected_perf" readonly="true"/>
+                        </div>
+                    </div>
+                    <div class="col-md-9" style="position: relative; height:67vh; width:65vw">
+                        <canvas id="EmpPerfDashboard" aria-label="chart"></canvas>
+                    </div>
+                    <div class="col-md-10 mx-auto mt-4">
+<!--                    <div class='input-group date datepicker' id='dp_dash'>-->
+<!--                      <input type='text' name="tgl" class="form-control" id="monthYearEle"/>-->
+<!--                      <span class="input-group-addon">-->
+<!--                        <span class="glyphicon glyphicon-calendar"></span>-->
+<!--                      </span>-->
+<!--                        <input type="hidden" id="month_year"/>-->
+<!--                    </div>-->
+<!--                        <button type="button" class="btn btn-primary" t-on-click="()=>this.singleMonthPerf()">Search</button>-->
+
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <t t-foreach="state.lastSixMonth" t-as="month" t-key="month_index">
+                                        <th><span t-esc="month"/></th>
+                                    </t>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="state.getSixMonthPerf" t-as="singleMonth" t-key="singleMonth_index">
+                                    <td t-foreach="singleMonth" t-as="perf" t-key="perf_index">
+                                        <span t-esc="perf ? perf : '-' "/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container" t-if="state.empData.is_admin">
+            <div class="jumbotron text-center mt-5">
+              <h1 class="display-4">Admin Dashboard Goes Here</h1>
+            </div>
+        </div>
+    </t>
+</templates>

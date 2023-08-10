@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<template>
+    <t t-name="hr.emp_kpi_list" owl="1">
+        <div class="todo-list-container">
+            <div class="row mx-2 mt-3">
+                <div class="col-lg-6">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" t-on-click="addNewTask">New</button>
+                </div>
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search here..." t-ref="search-input" t-on-keyup="searchTasks"/>
+                        <button class="btn btn-outline-primary" t-on-click="searchTasks">Search</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row m-2">
+                <div class="col">
+                    <table class="table table-striped table-hover border">
+                        <thead>
+                            <tr>
+                                <th scope="col">Job Designation</th>
+                                <th scope="col">Mapped KPIs</th>
+                                <th scope="col">Calculation</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="state.empKPIList" t-as="empKpi" t-key="empKpi.id">
+                                <td>
+                                    <span t-esc="empKpi.desig_name" />
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary" href="#" t-on-click="getMappedKPIs"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary" href="#" t-on-click="getCalculationView"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                </td>
+                                <td>
+<!--                                    <button class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#exampleModal" t-on-click="()=>this.editTask(task)">Edit</button>-->
+                                    <button class="btn btn-danger" t-on-click="()=>this.deleteEmpKpiCalc(empKpi)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        <!--Mapped KPI Modal -->
+        <div class="modal fade" id="mappedKpiModal" tabindex="-1" aria-labelledby="mappedKpiModalLabel" aria-hidden="true" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Mapped KPIs List</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
+                    </div>
+                    <div class="modal-body">
+                        <t t-foreach="state.mappedKpi" t-as="kpis" t-key="kpis_index">
+                            <span class="badge bg-primary" style="margin: 5px;" t-esc="kpis.name"/>
+                        </t>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calculation View Modal
+<!--        t-ref="modal-ref"-->
+        <div class="modal fade" id="calculationViewModal" tabindex="-1" aria-labelledby="mappedKpiModalLabel" aria-hidden="true" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Calculation</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"/>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-group mb-4" t-foreach="state.calculation_view" t-as="calc" t-key="calc_index">
+                            <h2><span t-esc="calc.grp_name"/></h2>
+                          <li class="list-group-item" t-foreach="calc.cal" t-as="obj" t-key="obj_index">
+                              <div class="row">
+                                  <div class="col"><span t-esc="obj.kpi_name"/></div>
+                                  <div class="col"><span t-esc="obj.fact_opt"/></div>
+                                  <div class="col"><span t-esc="obj.factor"/></div>
+                              </div>
+                          </li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </t>
+</template>
