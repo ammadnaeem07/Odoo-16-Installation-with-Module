@@ -56,9 +56,12 @@
                 </div>
             </div>
         </div>
-        <div class="container" t-if="state.empData.is_admin">
-            <div class="jumbotron text-center mt-5">
-              <h1 class="display-4">Admin Dashboard Goes Here</h1>
+        <div class="container-fluid" t-if="state.empData.is_admin">
+<!--            <div class="jumbotron text-center mt-5">-->
+<!--              <h1 class="display-4">Admin Dashboard Goes Here</h1>-->
+<!--            </div>-->
+            <div class="col-md-6" style="position: relative; height:47vh; width:45vw">
+                    <canvas id="teamPerfDashboard" aria-label="chart"></canvas>
             </div>
         </div>
     </t>

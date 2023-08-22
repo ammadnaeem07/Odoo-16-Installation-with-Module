@@ -9,9 +9,8 @@
                             <div class="col-sm-8">
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <select class="form-control __appearance_auto" id="empDesig"
-                                                placeholder="Select Designation"
-                                                autocomplete="off" t-on-change="_onChangeDesig">
+                                        <select class="form-control __appearance_auto select2" id="empDesig"
+                                                placeholder="Select Designation" name="emp_kpi_cat" t-on-change="_onChangeDesig">
                                             <option selected="true"></option>
                                             <option t-att-value="designation.id" t-foreach="state.desigList"
                                                     t-as="designation" t-key="designation.id">
@@ -21,10 +20,10 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <!--                                <input type="text" class="form-control" placeholder="Zip" aria-label="Zip"/>-->
-                                        <select class="form-control __appearance_auto" placeholder="Select a person..."
-                                                autocomplete="off">
+                                        <select class="form-control __appearance_auto select2" id="ind_person" placeholder="Select a person..."
+                                                autocomplete="off" t-on-change="filterEmpList">
                                             <option value=""></option>
-                                            <option t-att-value="emp.id" t-foreach="state.empList" t-as="emp"
+                                            <option t-att-value="emp.id" t-foreach="state.empListWithCode" t-as="emp"
                                                     t-key="emp.id">
                                                 <span t-esc="emp.name"/>
                                                 -
@@ -77,7 +76,7 @@
                                     <span t-esc="emp.grade"/>
                                 </td>
                                 <td>
-                                    <span t-esc="emp.monthly_performance ?? '-'"/>
+                                    <span t-esc="emp.monthly_performance ? emp.monthly_performance :  '-'"/>
                                 </td>
                                 <!--                        <td>Italy</td>-->
                                 <td style="text-align: center;">

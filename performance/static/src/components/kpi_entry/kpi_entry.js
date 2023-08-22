@@ -11,6 +11,7 @@ export class KpiEntry extends Component {
         this.state = useState({
            desigList: [],
            empList: [],
+           empListWithCode: [],
            kpiEntryEmp: {},
            empKpiData:[],
            userData:[],
@@ -35,7 +36,7 @@ export class KpiEntry extends Component {
 
         onWillStart(async () => {
             await this.getAllDesignations()
-            await this.getAllEmpKpi()
+//            await this.setupComponent()
             await this.getCurrentUserData()
         })
     }
@@ -75,6 +76,7 @@ export class KpiEntry extends Component {
             id: +desig_id
         });
         this.state.empList = emp_kpi
+        this.state.empListWithCode = emp_kpi
     }
     async empKpiFormView(emp, mode=''){
             this.state.empKpiData = await this.orm.call(this.kpi_model, 'getEmployeeKPI', [emp], []);
@@ -196,6 +198,22 @@ export class KpiEntry extends Component {
     }
     openDialog(modalId) {
         $('#'+modalId).modal('show')
+    }
+    async filterEmpList(){
+           let emp_id = document.getElementById("ind_person").value;
+            const singleEmp = []
+            this.state.empList = []
+            let desig_id = document.getElementById("empDesig").value;
+            let emp_kpi = await this.rpc('/kpi/entry', {
+                id: +desig_id
+            });
+            this.state.empList = emp_kpi
+//            console.log(emp_kpi)
+            if(this.state.empList){
+                singleEmp.push(this.state.empList.find(obj => obj.id == emp_id));
+                this.state.empList = singleEmp
+            }
+
     }
 
 }

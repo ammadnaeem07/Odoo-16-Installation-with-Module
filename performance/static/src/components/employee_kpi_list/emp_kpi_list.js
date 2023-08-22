@@ -16,6 +16,8 @@ export class EmpKPIList extends Component {
      })
 
      onWillStart(async () => {
+            let num  = 100;
+            console.log(num++)
             await this.getEmpKpiList()
         })
     }

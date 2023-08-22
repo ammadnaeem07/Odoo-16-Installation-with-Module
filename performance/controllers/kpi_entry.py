@@ -13,8 +13,10 @@ class KpiEntry(http.Controller):
 
     @http.route('/kpi/entry', auth='none', type="json", csrf=False, cors='*')
     def kpi_entry(self, **args):
-        emp_info = request.env['hr.contract'].sudo().search([('kpi_category_id', '=', args['id'])])
-        # print(emp_info)
+
+        # print(args)
+        emp_info = request.env['hr.contract'].sudo().search(
+            [('kpi_category_id', '=', int(args['id'])), ('state', '=', 'open')])
         emp_list = []
         for rec in emp_info:
             is_kpi_entered = []
@@ -29,7 +31,7 @@ class KpiEntry(http.Controller):
             if kpi_entered:
                 is_kpi_entered = kpi_entered.ids
             # print(kpi_entered)
-            monthly_perf_score = 0
+            monthly_perf_score = ''
             if kpi_entered:
                 monthly_perf_score = self.getEmpPerformance(kpi_entered)
             single_emp = {
@@ -45,6 +47,7 @@ class KpiEntry(http.Controller):
                 'kpi_cat_id': rec.kpi_category_id.id
             }
             emp_list.append(single_emp)
+        # print(emp_list)
         return emp_list
 
     def getEmpPerformance(self, kpis):
